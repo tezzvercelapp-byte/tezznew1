@@ -1,0 +1,273 @@
+/* map.css */
+
+body {
+    font-size: 100% !important;
+}
+
+.map-wrapper {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* UI Düymələri */
+.controls {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.control-btn {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: #f0f0f0;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+.control-btn.active {
+    background: #ddd;
+    border-color: #999;
+}
+
+.control-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#locate-me {
+    background-color: #e3f2fd;
+    border-color: #2fa4e7;
+    color: #005a9c;
+    font-weight: bold;
+}
+
+/* --- Composite Marker (HTML Marker) --- */
+.composite-marker {
+    width: 46px;
+    height: 60px;
+    position: relative;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+}
+
+.composite-marker::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 20px;
+    height: 20px;
+    background-color: #1F8CED;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    animation: radiation-pulse 2s infinite ease-out;
+}
+
+@keyframes radiation-pulse {
+    0% {
+        width: 10px;
+        height: 10px;
+        opacity: 0.8;
+        box-shadow: 0 0 5px #1F8CED;
+    }
+
+    100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+        box-shadow: 0 0 0 #1F8CED;
+    }
+}
+
+.pin-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-image: url('https://panel.tezz.az/static/icons/static_marker.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    z-index: 2;
+}
+
+.inner-icon {
+    position: absolute;
+    top: 16.5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid white;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Popup Modal --- */
+.custom-popup {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.popup-video-container {
+    width: 100%;
+    height: 400px;
+    background: #000;
+    position: relative;
+    display: block;
+}
+
+.popup-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.promo-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff4757;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 5;
+}
+
+.popup-content {
+    padding: 15px;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.popup-title {
+    font-weight: bold;
+}
+
+.popup-btn {
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.8);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 10;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.popup-close {
+    right: 10px;
+}
+
+.popup-promo-btn {
+    right: 50px;
+    background-image: url('https://panel.tezz.az/static/icons/open_promo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}
+
+.station-entry {
+    background: #f9f9f9;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #eee;
+    font-size: 14px;
+}
+
+.popup-footer {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.popup-footer a {
+    color: #2fa4e7;
+    text-decoration: none;
+}
+
+/* --- İstifadəçi yeri Markeri (User Location) --- */
+.user-marker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Markerin ucu xəritədəki nöqtəyə dəysin deyə yuxarı sürüşdürürük */
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+}
+
+.user-marker-label {
+    background-color: white;
+    color: #0056b3;
+    /* Mavi rəng */
+    padding: 8px 15px;
+    border-radius: 20px;
+    /* Yumru künclər */
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    /* Kölgə effekti */
+    margin-bottom: 5px;
+    /* İkonla yazı arası məsafə */
+    white-space: nowrap;
+    border: 1px solid #e3f2fd;
+}
+
+.user-marker-icon {
+    width: 50px;
+    /* İkonun ölçüsü */
+    height: 50px;
+    /* İkona yüngül kölgə veririk ki, xəritədən seçilsin */
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.3));
+}
+
+@media screen and (max-width:991px) {
+    .controls button {
+        font-size: 12px;
+    }
+}
